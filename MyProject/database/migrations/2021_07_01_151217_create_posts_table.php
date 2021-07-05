@@ -18,8 +18,8 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->string('title',200);
             $table->text('content');
-            $table->string('author');
-            $table->string('topic');
+            // $table->string('author');
+            // $table->string('topic');
         });
     }
 
