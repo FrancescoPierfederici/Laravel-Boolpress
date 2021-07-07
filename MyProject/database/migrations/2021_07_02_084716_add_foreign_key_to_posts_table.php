@@ -13,16 +13,16 @@ class AddForeignKeyToPostsTable extends Migration
      */
     public function up()
     {
-        // Schema::table('posts', function (Blueprint $table) {
-        //     //
-        //     $table->unsignedBigInteger("user_id");
-        //     $table->foreign("user_id")
-        //         ->references("id")
-        //         ->on("users");
+         Schema::table('posts', function (Blueprint $table) {
+            
+            $table->unsignedBigInteger("user_id");
+             $table->foreign("user_id")
+                ->references("id")
+                ->on("users");
 
                 // $table->foreignId("user_id")
                 // ->constrained()
-        // });
+         });
 
     }
 
@@ -35,7 +35,7 @@ class AddForeignKeyToPostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             //
-            $table->dropForeign("user_id")
+            $table->dropForeign("posts_user_id_foreign")
             ;$table->dropColumn("user_id");
         });
     }

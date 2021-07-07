@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <ul>
-        <li class="nav-item">
+@extends('layouts.public')
 
-            <div class="row justify-content-center">
-                <a href="{{ route('posts.index') }}" role="button">Torna alla home</a>
-            </div>
-
-        </li>
-    </ul>
-
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h3>{{$post->title}}</h3>
-                <div>
-                    <blockquote class="blockquote">
-                        <p>{{$post->content}}</p>
-                        {{-- <p>{{$post->user->name}}</p>
-                        <footer class="blockquote-footer"><cite title="Source Topic" class="text-info">{{$post->topic->name}}</cite></footer> --}}
-                    </blockquote>
-                </div>
-            </div>
+@section('content')
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+          <h1>{{ $post->title }}</h1>
+          {{ $post->updated_at }} | {{ $post->slug }} | {{ $post->category ? $post->category->name : '-' }}
         </div>
+
+        <a href="{{ route('posts.index') }}" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
+            <line x1="20" y1="12" x2="4" y2="12"></line>
+            <polyline points="10 18 4 12 10 6"></polyline>
+          </svg> Tutti i posts
+        </a>
+      </div>
+
+       @if(count($post->tags) > 0)
+            @foreach($post->tags as $tag)
+                <span class="badge badge-primary">{{ $tag->name }}</span>
+            @endforeach
+        @else
+            <em>Nessun tag disponibile...</em>
+        @endif
+
+      <p class="lead">{{ $post->content }}</p>
+
+      <p>Scritto da {{ $post->user->name }}</p>
     </div>
-    </li>
-</body>
-</html>
+  </div>
+</div>
+@endsection

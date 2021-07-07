@@ -1,48 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <table>
-      <thead>
-        <tr>
-          <th>title</th>
-          <th>description</th>
-        </tr>
-      </thead>
-    
-      <tbody>
-      @foreach($posts as $post )
-        <tr>
-          <td>{{$post->title}}</td>
-          <td>{{$post->content}}<td>
-            
-          <td>
-            <a href="{{ route('posts.show', $post->id) }}">More</a>
-            <td> 
-          {{-- <td><a href="{{ route('posts.edit', $post->id) }}">Edit</a><td>  --}}
-        
-          <td>
+@extends('layouts.public')
 
-            {{-- <form action="{{ route('posts.destroy', $post->id) }}" method="post" class="deleteForm">
-              @csrf
-            
-              @method('DELETE')
-            
-              <input type="submit" value="Delete"> 
-            </form> --}}
-          <td>
-        </tr>
+@section('content')
+<div class="row justify-content-center">
+  <div class="col-12">
 
-      @endforeach
-      </tbody>
-    
-    </table>
-    <br>
+    @foreach ($posts as $post)
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="https://www.linga.org/site/photos/Largnewsimages/image-not-found.png" class="img-fluid rounded-start" alt="..." style="max-height:150px;width: 100%; object-fit: cover">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ $post->title }}</h5>
+            <p class="card-text">{{ substr($post->content, 0, 80) }}</p>
+            <p class="card-text"><small class="text-muted">{{ $post->updated_at }}</small></p>
 
-</body>
-</html>
+            @foreach($post->tags as $tag)
+            <span class="badge badge-primary">{{ $tag->name }}</span>
+            @endforeach
+
+            <br>
+
+            <a href="{{ route('posts.show', ['slug' => $post->slug ]) }}">Apri...</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @endforeach
+
+  </div>
+</div>
+@endsection
